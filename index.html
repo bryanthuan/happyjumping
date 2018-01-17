@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Phaser with a sprinkle of ES6 Dust!</title>
+		<script type="text/javascript" src="scripts/popJamApi.js"></script>
+		<link rel="stylesheet" href="styles/main.css">
+		<style>
+			[touch-action="none"] {
+				-ms-touch-action: none;
+				touch-action: none;
+				touch-action-delay: none;
+			}
+
+			body /shadow-deep/ [touch-action="none"] {
+				-ms-touch-action: none;
+				touch-action: none;
+				touch-action-delay: none;
+			}
+
+			[touch-action="auto"] {
+				-ms-touch-action: auto;
+				touch-action: auto;
+				touch-action-delay: none;
+			}
+
+			body /shadow-deep/ [touch-action="auto"] {
+				-ms-touch-action: auto;
+				touch-action: auto;
+				touch-action-delay: none;
+			}
+
+			[touch-action="pan-x"] {
+				-ms-touch-action: pan-x;
+				touch-action: pan-x;
+				touch-action-delay: none;
+			}
+
+			body /shadow-deep/ [touch-action="pan-x"] {
+				-ms-touch-action: pan-x;
+				touch-action: pan-x;
+				touch-action-delay: none;
+			}
+
+			[touch-action="pan-y"] {
+				-ms-touch-action: pan-y;
+				touch-action: pan-y;
+				touch-action-delay: none;
+			}
+
+			body /shadow-deep/ [touch-action="pan-y"] {
+				-ms-touch-action: pan-y;
+				touch-action: pan-y;
+				touch-action-delay: none;
+			}
+
+			[touch-action="pan-x pan-y"],
+			[touch-action="pan-y pan-x"] {
+				-ms-touch-action: pan-x pan-y;
+				touch-action: pan-x pan-y;
+				touch-action-delay: none;
+			}
+
+			body /shadow-deep/ [touch-action="pan-x pan-y"],
+			body /shadow-deep/ [touch-action="pan-y pan-x"] {
+				-ms-touch-action: pan-x pan-y;
+				touch-action: pan-x pan-y;
+				touch-action-delay: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="share-button" id="btn_share" style="display:none" /></div>
+		<script>
+			document.addEventListener("DOMContentLoaded", function (event) {
+				popjam.init(function () { }, function () { });
+			});
+
+		</script>
+		<script src="scripts/TweenMax.min.js"></script>
+		<script src="scripts/fastclick.js"></script>
+		<script src="scripts/phaser.min.js"></script>
+		<script src="scripts/game.js"></script>
+		<script>
+			function onChallengeClick() {
+				// console.log("thử thách bạn bè");
+				popjam.copyLinkAction();
+			}
+			function onShareClick() {
+				// console.log("điểm số của bạn là: " + window.game.score);
+				var data = window.game.canvas.toDataURL();
+				processBase64Image(data, "drawCallback");
+
+				//console.log(data);   
+			}
+			function processBase64Image(base64data, callback) {
+				var canvas = document.getElementById("draw2D");
+				canvas.style.display = "block";
+				canvas.width = window.game.canvas.width;
+				canvas.height = window.game.canvas.width;
+				var ctx = canvas.getContext("2d");
+				var image = new Image();
+				image.src = base64data;
+				image.onload = function () {
+					// console.log("image ready");
+					ctx.translate(0, window.game.canvas.width);
+	            ctx.scale(1, 1);
+	            ctx.rotate(-90 * Math.PI / 180);
+	            ctx.drawImage(image, 0, window.game.canvas.height / 2 - window.game.canvas.width / 2, window.game.canvas.width, window.game.canvas.width, 0, 0, window.game.canvas.width, window.game.canvas.width);            
+	            popjam.shareImageToFeed(canvas.toDataURL("img/jpeg").split("data:image/png;base64,")[1]);
+	            console.log(canvas.toDataURL());
+	            ///xóa canvas     
+	            document.body.removeChild(canvas);
+				};
+			}
+		</script>
+		<canvas id="draw2D" style="display:none"></canvas>
+	</body>
+
+</html>
