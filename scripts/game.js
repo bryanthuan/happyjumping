@@ -132,8 +132,11 @@ var GameState = function (_Phaser$State) {
 			this.game.load.bitmapFont('font', 'images/font.png', 'images/font.fnt');
 			this.game.load.json("transform", "images/scene1.json");
 			this.game.load.atlasJSONHash("pack", "images/main.png", "images/main.json");
-			this.game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
-			this.game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+			// this.game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurX.js');
+			// this.game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/BlurY.js');
+
+			this.game.load.script('BlurX', 'scripts/filters/BlurX.js');
+			this.game.load.script('BlurY', 'scripts/filters/BlurY.js');
 			this.game.load.audio('welcome', 'sounds/welcome.mp3');
 			this.game.load.audio('select', 'sounds/select.mp3');
 			this.game.load.audio('runAmbient', 'sounds/runAmbient.mp3');
